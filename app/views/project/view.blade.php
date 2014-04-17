@@ -44,17 +44,17 @@
           <div class="row text-center">
             @if($project->pdf)
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <h3><a href="/{{ $project->pdf }}" target="_blank">PDF</a> <sup class="fa fa-external-link small"></sup></h3>
+              <h3><a href="{{ asset($project->pdf) }}" target="_blank">PDF</a> <sup class="fa fa-external-link small"></sup></h3>
             </div>
             @endif
             @if($project->ppt)
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <h3><a href="/{{ $project->ppt }}" target="_blank">PPT</a> <sup class="fa fa-external-link small"></sup></h3>
+              <h3><a href="{{ asset($project->ppt) }}" target="_blank">PPT</a> <sup class="fa fa-external-link small"></sup></h3>
             </div>
             @endif
             @if($project->zip)
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <h3><a href="/{{ $project->zip }}" target="_blank">ZIP</a> <sup class="fa fa-external-link small"></sup></h3>
+              <h3><a href="{{ asset($project->zip) }}" target="_blank">ZIP</a> <sup class="fa fa-external-link small"></sup></h3>
             </div>
             @endif
           </div>
