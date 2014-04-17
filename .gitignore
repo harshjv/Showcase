@@ -1,0 +1,11 @@
+/bootstrap/compiled.php
+/vendor
+/public/documents
+composer.phar
+composer.lock
+.env.local.php
+.env.php
+.DS_Store
+Thumbs.db
+*.sublime-workspace
+*.sublime-project

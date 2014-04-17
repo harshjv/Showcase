@@ -1,0 +1,202 @@
+.footer {
+  margin-top: 30px;
+  border-top: 1px solid #ddd;
+  padding: 20px 20px 10px 20px;
+}
+
+.no-border {
+  border:none;
+  border-radius: 0;
+}
+
+.no-padding {
+  padding: 0!important;
+}
+
+.no-padding-left {
+  padding-left: 0!important;
+}
+
+.no-padding-right {
+  padding-right: 0!important;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
+}
+
+.no-margin-top {
+  margin-top: 0;
+}
+
+.visible-inline-xs {
+  display: none;
+}
+
+a, a:hover, a:active, a:focus {
+  text-decoration: none;
+}
+
+.img-popular-book {
+  margin-bottom: 20px;
+}
+
+.img-book-cover {
+  margin-bottom: 12px;
+}
+
+ .bookhut-side-panel {
+  padding: 20px;
+ }
+
+.bookhut-container {
+  background:#fff;
+  padding:20px 18px;
+  border: 1px solid rgba(0,0,0,.08);
+  box-shadow:2px 2px 0 rgba(0,0,0,.125);
+  margin-bottom: 20px;
+}
+
+.uniq-shadow {
+  box-shadow:2px 2px 0 rgba(0,0,0,.125);
+}
+
+.bookhut-footer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.bookhut-footer ul {
+  margin: 0;
+}
+
+.book-thumbnail {
+  margin-bottom: 0!important;
+}
+
+.book-thumbnail .caption .book-title {
+  margin-top: 2px;
+}
+
+.price-button {
+  margin-top :12px!important;
+}
+
+.add-to-cart-button {
+  margin-top :10px!important;
+}
+
+.extra-small {
+  font-size: 70%;
+}
+
+.book-thumbnail .caption .mrp-label, .book-thumbnail .caption .rating-label {
+  margin-top: 10.5px;
+  margin-bottom: 0;
+}
+
+.left-glyphicon {
+  margin-right: 6px;
+}
+
+.navbar-dropdown-arrow {
+  margin-left: 4px;
+  font-size: 65%;
+}
+
+.block-left-item {
+  width:50%;
+  border-left:1px solid #DDD;
+  border-top:none;
+  border-bottom:none;
+}
+
+.block-right-item {
+  width:50%;
+  border-right:1px solid #DDD;
+  border-top:none;
+  border-bottom:none;
+}
+
+.review-text {
+  padding: 20px;
+}
+
+.review-box .media-heading {
+  padding:10px;
+}
+
+.book-details .list-group-item small {
+  margin-right: 4px;
+}
+
+.nav-justified > li {
+  float: none;
+}
+
+ul.spacious > li {
+  margin-bottom: 14px;
+}
+
+ul.spacious > li:last-child {
+  margin-bottom: 0;
+}
+
+.fa.fa-inr {
+  margin-right: 2px;
+}
+
+table.text-center th {
+  text-align: center;
+}
+
+.add-desc-box {
+  padding: 20px;
+  line-height: 150%;
+  resize: vertical;
+}
+
+.desc-show {
+  line-height: 190%;
+}
+
+.desc-show br {
+  margin-bottom: 15px;
+}
+
+.title-box {
+  text-align: center;
+  margin-bottom:25px;
+}
+
+.showcase-nav {
+  text-align: center;
+  margin-bottom:30px;
+  background: url('/assets/img/cubes.png');
+  padding-top:30px;
+  padding-bottom:30px;
+}
+
+.showcase-nav .form-control {
+  margin-top:30px;
+  margin-bottom:20px;
+}
+
+.add-project {
+  margin-top:15px;
+  margin-bottom:5px;
+}
+
+.showcase-logo {
+  border: 0;
+  text-shadow: 2px 2px 0 #bbb;
+}
+
+.showcase-logo:hover, .showcase-logo:focus {
+  border: 0;
+  text-shadow: 2px 2px 0 #aaa;
+}
+
+div.caption h3 a {
+  line-height: 130%;
+}

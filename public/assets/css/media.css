@@ -1,0 +1,51 @@
+/*
+  Extra Small
+*/
+@media (max-width:767px) {
+  .visible-inline-xs {
+    display: inline-block!important;
+  }
+
+  .navbar-glyphicon {
+    margin-right: 5px;
+  }
+
+  .book-col:nth-child(n+2) {
+    margin-top: 40px;
+  }
+
+  .nav-justified {
+    width: auto;
+  }
+
+  .nav-justified > li > a {
+    text-align: left;
+  }
+}
+
+/*
+  Small
+*/
+@media (min-width:768px) and (max-width: 991px) {
+  .book-col:nth-child(n+3) {
+    margin-top: 40px;
+  }
+}
+
+/*
+  Medium
+*/
+@media (min-width:992px) and (max-width: 1199px) {
+  .book-col:nth-child(n+4) {
+    margin-top: 40px;
+  }
+}
+
+/*
+  Large
+*/
+@media (min-width:1200px) {
+  .book-col:nth-child(n+5) {
+    margin-top: 40px;
+  }
+}

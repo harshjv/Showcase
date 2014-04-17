@@ -1,0 +1,23 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+body {
+  display: table;
+}
+
+.center-wrapper {
+  text-align: center;
+  display:table-cell!important;
+  height:100%;
+  width:100%;
+  vertical-align:middle;
+  padding:10%;
+}
+
+.zero-heading {
+  font-size:1000%;
+}
