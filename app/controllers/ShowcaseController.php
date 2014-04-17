@@ -5,7 +5,7 @@ class ShowcaseController extends BaseController {
   public function show($page = 1) {
 
     $projects_per_page = Config::get('showcase.projects_per_page');
-    $projects = Project::with('users', 'department')->paginatedWithSorted($projects_per_page, $page)->get();
+    $projects = Project::with('department')->paginatedWithSorted($projects_per_page, $page)->get();
     $total_projects = Project::count();
 
     if(count($projects) == 0) return View::make('showcase.zero', array('message' => 'Sorry', 'submessage' => 'Nothing to display'));
@@ -50,10 +50,11 @@ class ShowcaseController extends BaseController {
     return View::make('showcase.department', compact('department', 'projects', 'total_projects', 'page', 'projects_per_page'));
   }
 
-  public function afterAdd() {
-    if( ! Session::has('project_added')) return App::abort('404');
-    $data = Session::get('project_added');
-    return View::make('project.after_add', compact('data'));
+  public function success() {
+    if( ! Session::has('project_success')) return Redirect::route('edit');
+    $data = Session::get('project_success');
+    $title = $data['message'] . ' - Sarvajanik College of Engineering and Technology - Showcase';
+    return View::make('project.success', compact('data', 'title'));
   }
 
 }

@@ -5,7 +5,6 @@ class SystemSeeder extends Seeder {
   public function run() {
     Eloquent::unguard();
 
-    DB::table('users')->delete();
     DB::table('departments')->delete();
     DB::table('projects')->delete();
 

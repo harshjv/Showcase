@@ -1,15 +1,7 @@
 @extends('base')
 
-@section('title')
-Edit Project - Sarvajanik College of Engineering and Technology - Showcase
-@stop
-
-
 @section('javascript')
-<script src="/assets/vendor/js/jquery.ui.widget.js"></script>
-<script src="/assets/vendor/js/jquery.iframe-transport.js"></script>
-<script src="/assets/vendor/js/jquery.fileupload.js"></script>
-<script src="/assets/js/script.js"></script>
+<script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
 @stop
 
 @section('body')
@@ -17,7 +9,9 @@ Edit Project - Sarvajanik College of Engineering and Technology - Showcase
   <h3>Edit Project</h3>
 </div>
 
-{{ Form::open(array('route' => 'do_add')) }}
+{{ Form::open(array('route' => 'do_edit')) }}
+
+<input type="hidden" class="hide" value="{{ $project->id }}" name="project_id">
 
 <div class="container">
   <div class="row">
@@ -27,12 +21,12 @@ Edit Project - Sarvajanik College of Engineering and Technology - Showcase
     <div class="col-lg-8">
       <select class="form-control" name="department" required autocomplete="off">
         @foreach($departments as $department)
-          <option value="{{ $department->id }}" {{ ($department->id == $project->department->id) ? 'selected' : '' }}>{{ $department->name }}</option>
+          <option value="{{ $department->id }}" {{ ($department->id == $project->department_id) ? 'selected' : '' }}>{{ $department->name }}</option>
         @endforeach
       </select>
     </div>
     <div class="col-lg-2">
-      <h5>This project belongs to this department</h5>
+      <h5>Project belongs to this department</h5>
     </div>
   </div>
 </div>
@@ -69,7 +63,7 @@ Edit Project - Sarvajanik College of Engineering and Technology - Showcase
       <h4>Description</h4>
     </div>
     <div class="col-lg-8">
-      <textarea class="form-control add-desc-box" rows="10" name="description" required>{{ $project->description }}</textarea>
+      <textarea class="form-control add-desc-box" rows="10" name="description" required>{{ $project->description_raw }}</textarea>
     </div>
     <div class="col-lg-2">
       <h5>A breif description of your project</h5>
@@ -82,52 +76,64 @@ Edit Project - Sarvajanik College of Engineering and Technology - Showcase
   <div class="row">
     <div class="col-lg-2 text-right">
       <h4>Documentation</h4>
-      <h4 class="text-center" id="thumbnail_title" style="display:none"><small>Thumbnail</small></h4>
-      <img src="" style="display:none" id="thumbnail_view" class="img-thumbnail">
     </div>
     <div class="col-lg-8">
-      <input type="text" class="form-control" placeholder="Youtube Video URL" name="youtube" value="{{ $project->youtube }}">
-      <br>
+      <input type="url" class="form-control" placeholder="Video URL" name="video" required value="{{ $project->video }}">
+    </div>
+    <div class="col-lg-2">
+      <h5>Use <a href="http://vimeo.com">Vimeo</a> for video</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2 text-right"></div>
+    <div class="col-lg-8">
       <div class="row text-center">
         <div class="col-lg-6">
           <h4>Image</h4>
-          <h4><small>Should be 1000x300px</small></h4>
-          <input id="upload_image" type="file" name="image" data-url="/upload/image" autocomplete="off">
-          <div id="image_helper"></div>
-          <input type="hidden" name="image_file" id="image_file" autocomplete="off" value="0">
+          <h5 class="text-muted">Size 1000x200px</h5>
+          <input type="url" class="form-control" placeholder="Image URL" name="image_1" required value="{{ $project->image_1 }}">
+          <br>
+          <input type="url" class="form-control" placeholder="Image URL" name="image_2" required value="{{ $project->image_2 }}">
+          <br>
+          <input type="url" class="form-control" placeholder="Image URL" name="image_3" required value="{{ $project->image_3 }}">
         </div>
         <div class="col-lg-6">
-          <h4>Thumbnail <small>Or i will create it</small></h4>
-          <h4><small>Should be 200x200px</small></h4>
-          <input id="upload_thumbnail" type="file" name="thumbnail" data-url="/upload/thumbnail" autocomplete="off">
-          <div id="thumbnail_helper"></div>
-          <input type="hidden" name="thumbnail_file" id="thumbnail_file" autocomplete="off" value="0">
-        </div>
-      </div>
-      <br>
-      <div class="row text-center">
-        <div class="col-lg-4">
-          <h4>PDF</h4>
-          <input id="upload_pdf" type="file" name="pdf" data-url="/upload/pdf" autocomplete="off">
-          <div id="pdf_helper"></div>
-          <input type="hidden" name="pdf_file" id="pdf_file" autocomplete="off" value="0">
-        </div>
-        <div class="col-lg-4">
-          <h4>PPT</h4>
-          <input id="upload_ppt" type="file" name="ppt" data-url="/upload/ppt" autocomplete="off">
-          <div id="ppt_helper"></div>
-          <input type="hidden" name="ppt_file" id="ppt_file" autocomplete="off" value="0">
-        </div>
-        <div class="col-lg-4">
-          <h4>ZIP</h4>
-          <input id="upload_zip" type="file" name="zip" data-url="/upload/zip" autocomplete="off">
-          <div id="zip_helper"></div>
-          <input type="hidden" name="zip_file" id="zip_file" autocomplete="off" value="0">
+          <h4>Thumbnail</h4>
+          <h5 class="text-muted">Size 250x250px</h5>
+          <input type="url" class="form-control" placeholder="Thumbnail URL" name="thumbnail" required value="{{ $project->thumbnail }}">
         </div>
       </div>
     </div>
     <div class="col-lg-2">
-      <h5>Max. file size <abbr title="50MB" style="cursor:help">2<sup>22</sup> x 5<sup>2</sup> Nibble</abbr> for documents</h5>
+      <h5>Use <a href="http://imgur.com">Imgur</a> for images</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2 text-right"></div>
+    <div class="col-lg-8">
+      <div class="row text-center">
+        <div class="col-lg-4">
+          <h4>PDF</h4>
+          <input type="url" class="form-control" placeholder="PDF URL" name="pdf" required value="{{ $project->pdf }}">
+        </div>
+        <div class="col-lg-4">
+          <h4>PPT</h4>
+          <input type="url" class="form-control" placeholder="PPT URL" name="ppt" required value="{{ $project->ppt }}">
+        </div>
+        <div class="col-lg-4">
+          <h4>ZIP</h4>
+          <input type="url" class="form-control" placeholder="ZIP URL" name="zip" value="{{ $project->zip }}">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <h5>Use <a href="http://drive.google.com">Google Drive</a> or <a href="http://dropbox.com">Dropbox</a> for Documents</h5>
     </div>
   </div>
 </div>
@@ -150,23 +156,22 @@ Edit Project - Sarvajanik College of Engineering and Technology - Showcase
               </tr>
             </thead>
             <tbody id="part-body">
+              @for($i=1; $i<=$project->total_participants;$i++)
               <tr>
-                <td><input class="form-control" type="text" name="part_1_name" required autocomplete="off"></td>
-                <td><input class="form-control" type="email" name="part_1_email" required autocomplete="off"></td>
-                <td><input class="form-control" type="text" name="part_1_enrollment" required autocomplete="off"></td>
+                <td><input class="form-control" type="text" name="part_1_name" required autocomplete="off" value="{{ $project['name_'.$i] }}"></td>
+                <td><input class="form-control" type="email" name="part_1_email" required autocomplete="off" value="{{ $project['email_'.$i] }}"></td>
+                <td><input class="form-control" type="text" name="part_1_enrollment" required autocomplete="off" value="{{ $project['enrollment_'.$i] }}"></td>
               </tr>
+              @endfor
             </tbody>
           </table>
         </div>
       </div>
-      <input type="hidden" class="hide" id="total-part" name="total_part" value="1" autocomplete="off">
+      <input type="hidden" class="hide" id="total-part" name="total_part" value="{{ $project->total_participants }}" autocomplete="off">
       <div class="btn-group btn-group-justified">
         <a class="btn btn-default btn-block" id="add-part">Add participant</a>
         <a class="btn btn-danger btn-block disabled" id="remove-part">Remove last participant</a>
       </div>
-    </div>
-    <div class="col-lg-2">
-      <h5>Max. 4 participants</h5>
     </div>
   </div>
 </div>
@@ -179,12 +184,21 @@ Edit Project - Sarvajanik College of Engineering and Technology - Showcase
       <h4>Final</h4>
     </div>
     <div class="col-lg-8">
-      <button type="submit" class="btn btn-success btn-block">Submit this project</button>
+      <button type="submit" class="btn btn-success btn-block">Save changes</button>
     </div>
     <div class="col-lg-2">
-      <h5>Best of luck. Bright future ahead!</h5>
+      <h5>Best of luck for your changes</h5>
     </div>
   </div>
+</div>
+
+<br>
+
+<div class="container text-right">
+  <p>Added {{ $project->created_at->diffForHumans() }}</p>
+  @if($project->created_at != $project->updated_at)
+    <p>Updated {{ $project->updated_at->diffForHumans() }}</p>
+  @endif
 </div>
 
 </form>

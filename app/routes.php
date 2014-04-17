@@ -10,6 +10,8 @@ Route::get('add', array('as' => 'add', 'uses' => 'ProjectController@add'));
 Route::get('edit', array('as' => 'edit', 'uses' => 'ProjectController@edit'));
 Route::post('edit', array('before' =>'csrf', 'as' => 'edit_check', 'uses' => 'ProjectController@editCheck'));
 
+Route::post('edit_project', array('before' =>'csrf', 'as' => 'do_edit', 'uses' => 'ProjectController@doEdit'));
+
 Route::get('search', array('as' => 'search', 'uses' => 'ShowcaseController@search'));
 
 Route::post('add', array('before' =>'csrf', 'as' => 'do_add', 'uses' => 'ProjectController@doAdd'));
@@ -42,7 +44,7 @@ Route::get('/pick', function() {
 
 });
 
-Route::get('/success', array('as' => 'after_add', 'uses' => 'ShowcaseController@afterAdd'));
+Route::get('/success', array('as' => 'success', 'uses' => 'ShowcaseController@success'));
 
 
 Route::get('/oauth2callback', 'AuthController@google');

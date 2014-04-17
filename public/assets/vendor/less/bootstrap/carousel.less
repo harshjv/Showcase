@@ -79,13 +79,13 @@
   // animation if you trip this while in the middle of another animation.
 
   // Set gradients for backgrounds
-  &.left {
-    #gradient > .horizontal(@start-color: rgba(0,0,0,.5); @end-color: rgba(0,0,0,.0001));
-  }
+  //&.left {
+    //#gradient > .horizontal(@start-color: rgba(0,0,0,.5); @end-color: rgba(0,0,0,.0001));
+  //}
   &.right {
     left: auto;
     right: 0;
-    #gradient > .horizontal(@start-color: rgba(0,0,0,.0001); @end-color: rgba(0,0,0,.5));
+  //  #gradient > .horizontal(@start-color: rgba(0,0,0,.0001); @end-color: rgba(0,0,0,.5));
   }
 
   // Hover/focus state
@@ -100,19 +100,19 @@
   // Toggles
   .icon-prev,
   .icon-next,
-  .glyphicon-chevron-left,
-  .glyphicon-chevron-right {
+  .fa-chevron-left,
+  .fa-chevron-right {
     position: absolute;
     top: 50%;
     z-index: 5;
     display: inline-block;
   }
   .icon-prev,
-  .glyphicon-chevron-left {
+  .fa-chevron-left {
     left: 50%;
   }
   .icon-next,
-  .glyphicon-chevron-right {
+  .fa-chevron-right {
     right: 50%;
   }
   .icon-prev,
@@ -178,6 +178,7 @@
     width:  12px;
     height: 12px;
     background-color: @carousel-indicator-active-bg;
+    .box-shadow(2px 2px 0 rgba(0,0,0,.150));
   }
 }
 
@@ -206,8 +207,8 @@
 
   // Scale up the controls a smidge
   .carousel-control {
-    .glyphicon-chevron-left,
-    .glyphicon-chevron-right,
+    .fa-chevron-left,
+    .fa-chevron-right,
     .icon-prev,
     .icon-next {
       width: 30px;

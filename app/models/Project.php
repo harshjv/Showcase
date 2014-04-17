@@ -4,10 +4,6 @@ class Project extends Eloquent {
 
   protected $table = 'projects';
 
-  public function users() {
-    return $this->hasMany('User');
-  }
-
   public function department() {
     return $this->belongsTo('Department');
   }

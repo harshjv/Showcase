@@ -1,9 +1,5 @@
 @extends('base')
 
-@section('title')
-{{ $project->title }} {{ ($project->subtitle) ? '- '.$project->subtitle.' ' : '' }}- Sarvajanik College of Engineering and Technology - Showcase
-@stop
-
 @section('body')
 <div class="container-fluid title-box">
   <h1><a href="{{ route('view_project', array($project->id)) }}">{{ $project->title }}</a></h1>
@@ -19,7 +15,30 @@
     </div>
     <div class="col-lg-8">
       <div class="panel panel-default">
-        <img src="/{{ $project->image }}" style="border-bottom: 1px solid #ddd;max-width:100%;height:auto;display:inline-block">
+        <div id="project-images" class="carousel slide" data-ride="carousel" style="border-bottom: 1px solid #ddd">
+          <ol class="carousel-indicators">
+            <li data-target="#project-images" data-slide-to="0" class="active"></li>
+            <li data-target="#project-images" data-slide-to="1"></li>
+            <li data-target="#project-images" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="{{ $project->image_1 }}" alt="{{ $project->title }}">
+            </div>
+            <div class="item">
+              <img src="{{ $project->image_2 }}" alt="{{ $project->title }}">
+            </div>
+            <div class="item">
+              <img src="{{ $project->image_3 }}" alt="{{ $project->title }}">
+            </div>
+          </div>
+          <a class="left carousel-control" href="#project-images" data-slide="prev">
+            <span class="fa fa-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#project-images" data-slide="next">
+            <span class="fa fa-chevron-right"></span>
+          </a>
+        </div>
         <div class="panel-body desc-show">
           {{ $project->description }}
         </div>
@@ -36,7 +55,7 @@
     </div>
     <div class="col-lg-8">
       <div class="panel panel-default">
-        @if($project->youtube)
+        @if($project->video)
         <img src="holder.js/100%x400/text:Video" style="border-bottom: 1px solid #ddd">
         @endif
         @if($project->pdf || $project->ppt || $project->zip)
@@ -44,17 +63,17 @@
           <div class="row text-center">
             @if($project->pdf)
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <h3><a href="{{ asset($project->pdf) }}" target="_blank">PDF</a> <sup class="fa fa-external-link small"></sup></h3>
+              <h3><a href="{{ $project->pdf }}" target="_blank">PDF</a> <sup class="fa fa-external-link small"></sup></h3>
             </div>
             @endif
             @if($project->ppt)
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <h3><a href="{{ asset($project->ppt) }}" target="_blank">PPT</a> <sup class="fa fa-external-link small"></sup></h3>
+              <h3><a href="{{ $project->ppt }}" target="_blank">PPT</a> <sup class="fa fa-external-link small"></sup></h3>
             </div>
             @endif
             @if($project->zip)
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <h3><a href="{{ asset($project->zip) }}" target="_blank">ZIP</a> <sup class="fa fa-external-link small"></sup></h3>
+              <h3><a href="{{ $project->zip }}" target="_blank">ZIP</a> <sup class="fa fa-external-link small"></sup></h3>
             </div>
             @endif
           </div>
@@ -83,18 +102,25 @@
               </tr>
             </thead>
             <tbody>
-            @foreach($project->users as $user)
+              <?php $u = $project->total_participants; $i=1; ?>
+            @while($i<=$u)
               <tr>
-                <td>{{ $user->name }}</td>
-                <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                <td>{{ $user->enrollment }}</td>
+                <td>{{ $project['name_'.$i] }}</td>
+                <td><a href="mailto:{{ $project['email_'.$i] }}">{{ $project['email_'.$i] }}</a></td>
+                <td>{{ $project['enrollment_'.$i] }}</td>
               </tr>
-            @endforeach
+              <?php $i++; ?>
+            @endwhile
             </tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
+</div>
+
+<br>
+<div class="container text-right">
+  <p>Added {{ $project->created_at->diffForHumans() }}</p>
 </div>
 @stop

@@ -19,32 +19,48 @@ class ShowcaseSchema extends Migration {
       $table->string('title');
       $table->string('subtitle')->nullable();
       $table->text('description');
-      $table->string('youtube')->nullable();
-      $table->string('image')->nullable();
+      $table->text('description_raw');
+
+      $table->string('video');
+
+      $table->string('image_1');
+      $table->string('image_2');
+      $table->string('image_3');
       $table->string('thumbnail')->nullable();
-      $table->string('pdf')->nullable();
-      $table->string('ppt')->nullable();
+
+      $table->string('pdf');
+      $table->string('ppt');
       $table->string('zip')->nullable();
-      $table->string('code');
+
+      $table->string('code')->unique();
+
       $table->integer('department_id')->unsigned();
       $table->foreign('department_id')->references('id')->on('departments');
-      $table->timestamps();
-    });
 
-    Schema::create('users', function($table) {
-      $table->increments('id')->unsigned();
-      $table->string('name');
-      $table->string('email');
-      $table->string('enrollment');
-      $table->integer('project_id')->unsigned();
-      $table->foreign('project_id')->references('id')->on('projects');
+      $table->string('name_1');
+      $table->string('email_1');
+      $table->string('enrollment_1');
+
+      $table->string('name_2')->nullable();
+      $table->string('email_2')->nullable();
+      $table->string('enrollment_2')->nullable();
+
+      $table->string('name_3')->nullable();
+      $table->string('email_3')->nullable();
+      $table->string('enrollment_3')->nullable();
+
+      $table->string('name_4')->nullable();
+      $table->string('email_4')->nullable();
+      $table->string('enrollment_4')->nullable();
+
+      $table->smallInteger('total_participants');
+
       $table->timestamps();
     });
 
   }
 
   public function down() {
-    Schema::drop('users');
     Schema::drop('projects');
     Schema::drop('departments');
   }

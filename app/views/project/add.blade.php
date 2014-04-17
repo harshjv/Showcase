@@ -1,15 +1,7 @@
 @extends('base')
 
-@section('title')
-Add Project - Sarvajanik College of Engineering and Technology - Showcase
-@stop
-
-
 @section('javascript')
-<script src="/assets/vendor/js/jquery.ui.widget.js"></script>
-<script src="/assets/vendor/js/jquery.iframe-transport.js"></script>
-<script src="/assets/vendor/js/jquery.fileupload.js"></script>
-<script src="/assets/js/script.js"></script>
+<script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
 @stop
 
 @section('body')
@@ -32,7 +24,7 @@ Add Project - Sarvajanik College of Engineering and Technology - Showcase
       </select>
     </div>
     <div class="col-lg-2">
-      <h5>This project belongs to this department</h5>
+      <h5>Project belongs to this department</h5>
     </div>
   </div>
 </div>
@@ -82,52 +74,64 @@ Add Project - Sarvajanik College of Engineering and Technology - Showcase
   <div class="row">
     <div class="col-lg-2 text-right">
       <h4>Documentation</h4>
-      <h4 class="text-center" id="thumbnail_title" style="display:none"><small>Thumbnail</small></h4>
-      <img src="" style="display:none" id="thumbnail_view" class="img-thumbnail">
     </div>
     <div class="col-lg-8">
-      <input type="text" class="form-control" placeholder="Youtube Video URL" name="youtube">
-      <br>
+      <input type="url" class="form-control" placeholder="Video URL" name="video" required>
+    </div>
+    <div class="col-lg-2">
+      <h5>Use <a href="http://vimeo.com">Vimeo</a> for video</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2 text-right"></div>
+    <div class="col-lg-8">
       <div class="row text-center">
         <div class="col-lg-6">
           <h4>Image</h4>
-          <h4><small>Should be 1000x300px</small></h4>
-          <input id="upload_image" type="file" name="image" data-url="/upload/image" autocomplete="off">
-          <div id="image_helper"></div>
-          <input type="hidden" name="image_file" id="image_file" autocomplete="off" value="0">
+          <h5 class="text-muted">Size 1000x200px</h5>
+          <input type="url" class="form-control" placeholder="Image URL" name="image_1" required>
+          <br>
+          <input type="url" class="form-control" placeholder="Image URL" name="image_2" required>
+          <br>
+          <input type="url" class="form-control" placeholder="Image URL" name="image_3" required>
         </div>
         <div class="col-lg-6">
-          <h4>Thumbnail <small>Or i will create it</small></h4>
-          <h4><small>Should be 200x200px</small></h4>
-          <input id="upload_thumbnail" type="file" name="thumbnail" data-url="/upload/thumbnail" autocomplete="off">
-          <div id="thumbnail_helper"></div>
-          <input type="hidden" name="thumbnail_file" id="thumbnail_file" autocomplete="off" value="0">
-        </div>
-      </div>
-      <br>
-      <div class="row text-center">
-        <div class="col-lg-4">
-          <h4>PDF</h4>
-          <input id="upload_pdf" type="file" name="pdf" data-url="/upload/pdf" autocomplete="off">
-          <div id="pdf_helper"></div>
-          <input type="hidden" name="pdf_file" id="pdf_file" autocomplete="off" value="0">
-        </div>
-        <div class="col-lg-4">
-          <h4>PPT</h4>
-          <input id="upload_ppt" type="file" name="ppt" data-url="/upload/ppt" autocomplete="off">
-          <div id="ppt_helper"></div>
-          <input type="hidden" name="ppt_file" id="ppt_file" autocomplete="off" value="0">
-        </div>
-        <div class="col-lg-4">
-          <h4>ZIP</h4>
-          <input id="upload_zip" type="file" name="zip" data-url="/upload/zip" autocomplete="off">
-          <div id="zip_helper"></div>
-          <input type="hidden" name="zip_file" id="zip_file" autocomplete="off" value="0">
+          <h4>Thumbnail</h4>
+          <h5 class="text-muted">Size 250x250px</h5>
+          <input type="url" class="form-control" placeholder="Thumbnail URL" name="thumbnail" required>
         </div>
       </div>
     </div>
     <div class="col-lg-2">
-      <h5>Max. file size <abbr title="50MB" style="cursor:help">2<sup>22</sup> x 5<sup>2</sup> Nibble</abbr> for documents</h5>
+      <h5>Use <a href="http://imgur.com">Imgur</a> for images</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2 text-right"></div>
+    <div class="col-lg-8">
+      <div class="row text-center">
+        <div class="col-lg-4">
+          <h4>PDF</h4>
+          <input type="url" class="form-control" placeholder="PDF URL" name="pdf" required>
+        </div>
+        <div class="col-lg-4">
+          <h4>PPT</h4>
+          <input type="url" class="form-control" placeholder="PPT URL" name="ppt" required>
+        </div>
+        <div class="col-lg-4">
+          <h4>ZIP</h4>
+          <input type="url" class="form-control" placeholder="ZIP URL" name="zip">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <h5>Use <a href="http://drive.google.com">Google Drive</a> or <a href="http://dropbox.com">Dropbox</a> for Documents</h5>
     </div>
   </div>
 </div>
@@ -164,9 +168,6 @@ Add Project - Sarvajanik College of Engineering and Technology - Showcase
         <a class="btn btn-default btn-block" id="add-part">Add participant</a>
         <a class="btn btn-danger btn-block disabled" id="remove-part">Remove last participant</a>
       </div>
-    </div>
-    <div class="col-lg-2">
-      <h5>Max. 4 participants</h5>
     </div>
   </div>
 </div>
