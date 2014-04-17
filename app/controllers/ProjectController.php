@@ -9,6 +9,18 @@ class ProjectController extends BaseController {
     return View::make('project.add', compact('departments'));
   }
 
+  public function edit() {
+    return View::make('project.edit');
+  }
+
+  public function editCheck() {
+    $departments = Cache::rememberForever('departments', function() {
+      return Department::all();
+    });
+    $project = Project::with('users', 'department')->where('code', trim(Input::get('code')))->firstOrFail();
+    return View::make('project.do_edit', compact('project', 'departments'));
+  }
+
   public function view($id) {
     $project = Project::with('users', 'department')->where('projects.id', $id)->firstOrFail();
     return View::make('project.view', compact('project'));
@@ -32,6 +44,7 @@ class ProjectController extends BaseController {
     $project->pdf = Input::get('pdf_file', null);
     $project->ppt = Input::get('ppt_file', null);
     $project->zip = Input::get('zip_file', null);
+    $project->code = uniqid(md5(rand()));
     $project->department()->associate($dep);
     $project->save();
 
@@ -39,12 +52,10 @@ class ProjectController extends BaseController {
     $i=1;
 
     while($i!=($t+1)) {
-      //$dep = Department::find((int) Input::get('part_'.$i.'_department'));
       $user = new User();
       $user->name = ucwords(Input::get('part_'.$i.'_name'));
       $user->email = strtolower(Input::get('part_'.$i.'_email'));
       $user->enrollment = strtoupper(Input::get('part_'.$i.'_enrollment'));
-      //$user->department()->associate($dep);
       $user->project()->associate($project);
       $user->save();
       $i++;
@@ -52,7 +63,9 @@ class ProjectController extends BaseController {
 
     });
 
-    return Redirect::route('view_project', array($project->id));
+    Session::flash('project_added', array('id' => $project->id, 'code' => $project->code));
+
+    return Redirect::route('after_add');
 
   }
 

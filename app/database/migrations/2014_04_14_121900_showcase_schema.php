@@ -25,6 +25,7 @@ class ShowcaseSchema extends Migration {
       $table->string('pdf')->nullable();
       $table->string('ppt')->nullable();
       $table->string('zip')->nullable();
+      $table->string('code');
       $table->integer('department_id')->unsigned();
       $table->foreign('department_id')->references('id')->on('departments');
       $table->timestamps();

@@ -7,9 +7,13 @@ Route::get('/{page?}', array('as' => 'showcase', 'uses' => 'ShowcaseController@s
 
 Route::get('add', array('as' => 'add', 'uses' => 'ProjectController@add'));
 
+Route::get('edit', array('as' => 'edit', 'uses' => 'ProjectController@edit'));
+Route::post('edit', array('before' =>'csrf', 'as' => 'edit_check', 'uses' => 'ProjectController@editCheck'));
+
 Route::get('search', array('as' => 'search', 'uses' => 'ShowcaseController@search'));
 
 Route::post('add', array('before' =>'csrf', 'as' => 'do_add', 'uses' => 'ProjectController@doAdd'));
+
 
 Route::get('project/{id}', array('as' => 'view_project', 'uses' => 'ProjectController@view'));
 
@@ -37,6 +41,8 @@ Route::get('/pick', function() {
   return View::make('pick');
 
 });
+
+Route::get('/success', array('as' => 'after_add', 'uses' => 'ShowcaseController@afterAdd'));
 
 
 Route::get('/oauth2callback', 'AuthController@google');

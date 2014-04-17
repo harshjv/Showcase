@@ -50,4 +50,10 @@ class ShowcaseController extends BaseController {
     return View::make('showcase.department', compact('department', 'projects', 'total_projects', 'page', 'projects_per_page'));
   }
 
+  public function afterAdd() {
+    if( ! Session::has('project_added')) return App::abort('404');
+    $data = Session::get('project_added');
+    return View::make('project.after_add', compact('data'));
+  }
+
 }
