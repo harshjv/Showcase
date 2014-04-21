@@ -38,7 +38,7 @@ class ShowcaseController extends BaseController {
     $projects_per_page = Config::get('showcase.projects_per_page');
 
     $department = Department::with(array('projects' => function($project) use($projects_per_page, $page) {
-      $project->with('users')->paginatedWithSorted($projects_per_page, $page);
+      $project->paginatedWithSorted($projects_per_page, $page);
     }))->where('departments.slug', $slug)->firstOrFail();
 
     $total_projects = Project::where('projects.department_id', $department->id)->count();
