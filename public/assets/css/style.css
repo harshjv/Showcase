@@ -200,3 +200,7 @@ table.text-center th {
 div.caption h3 a {
   line-height: 130%;
 }
+
+.dz-size {
+  display: none;
+}

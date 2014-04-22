@@ -13,7 +13,7 @@ Sarvajanik College of Engineering and Technology - Showcase
     @foreach($projects as $project)
     <div class="col-lg-3">
       <div class="thumbnail">
-        <img src="/{{ $project->thumbnail }}" alt="{{ $project->title }}">
+        <img src="{{ asset($project->thumbnail) }}" alt="{{ $project->title }}">
         <div class="caption">
           <h3><a href="{{ route('view_project', array($project->id)) }}">{{ $project->title }}</a></h3>
           @if($project->subtitle)

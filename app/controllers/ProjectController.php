@@ -10,6 +10,14 @@ class ProjectController extends BaseController {
     return View::make('project.add', compact('departments', 'title'));
   }
 
+  public function addDropZone() {
+    $title = "Add project - Sarvajanik College of Engineering and Technology";
+    $departments = Cache::rememberForever('departments', function() {
+      return Department::all();
+    });
+    return View::make('project.addDropZone', compact('departments', 'title'));
+  }
+
   public function edit() {
     return View::make('project.edit');
   }
@@ -44,19 +52,53 @@ class ProjectController extends BaseController {
 
     $dep = Department::find((int) Input::get('department'));
 
+    $a = explode(',', trim(Input::get('documents')));
+
+    $images = array();
+    $pdf = null;
+    $zip = null;
+
+    foreach ($a as $val) {
+      if(ends_with($val, 'pdf')) {
+        $pdf = $val;
+      }
+      if(ends_with($val, 'zip')) {
+        $zip = $val;
+      }
+      if(ends_with($val, 'jpg') || ends_with($val, 'jpeg') || ends_with($val, 'png')) {
+        $images[] = $val;
+      }
+    }
+
     $project = new Project();
     $project->title = ucfirst(trim(Input::get('title')));
     $project->subtitle = ucfirst(trim(Input::get('subtitle', null)));
     $project->description_raw = ($desc = ucfirst(trim(Input::get('description'))));
     $project->description = nl2br(htmlentities($desc));
     $project->video = trim(Input::get('video'));
-    $project->image_1 = trim(Input::get('image_1'));
-    $project->image_2 = trim(Input::get('image_2'));
-    $project->image_3 = trim(Input::get('image_3'));
-    $project->thumbnail = trim(Input::get('thumbnail'));
-    $project->pdf = trim(Input::get('pdf'));
-    $project->ppt = trim(Input::get('ppt'));
-    $project->zip = trim(Input::get('zip', null));
+
+    $project->image_1 = $images[0];
+    $project->image_2 = $images[1];
+    $project->image_3 = $images[2];
+
+    $destinationPath = public_path().'/documents';
+    $folder = str_random(5);
+    $filename = str_random(6).uniqid().str_random(6).'.'.pathinfo($images[0], PATHINFO_EXTENSION);
+
+    if( ! File::exists($destinationPath.'/'.$folder)) {
+      try {
+        File::makeDirectory($destinationPath.'/'.$folder);
+      } catch(IOException $e) {
+        // FAIL
+      }
+    }
+
+    $image = Image::make(public_path().'/'.$images[0])->crop(300,300)->save($destinationPath.'/'.$folder.'/'.$filename);
+
+    $project->thumbnail = '/documents/'.$folder.'/'.$filename;
+    $project->pdf = $pdf;
+    $project->zip = $zip;
+
     $project->code = uniqid(md5(rand()));
     $project->total_participants = (int) trim(Input::get('total_part'));
     $project->department()->associate($dep);
@@ -106,19 +148,51 @@ class ProjectController extends BaseController {
 
     $dep = Department::find((int) Input::get('department'));
 
+    $a = explode(',', trim(Input::get('documents')));
+
+    $images = array();
+    $pdf = null;
+    $zip = null;
+
+    foreach ($a as $val) {
+      if(ends_with($val, 'pdf')) {
+        $pdf = $val;
+      }
+      if(ends_with($val, 'zip')) {
+        $zip = $val;
+      }
+      if(ends_with($val, 'jpg') || ends_with($val, 'jpeg') || ends_with($val, 'png')) {
+        $images[] = $val;
+      }
+    }
+
     //$project = new Project();
     $project->title = ucfirst(trim(Input::get('title')));
     $project->subtitle = ucfirst(trim(Input::get('subtitle', null)));
     $project->description_raw = ($desc = ucfirst(trim(Input::get('description'))));
     $project->description = nl2br(htmlentities($desc));
     $project->video = trim(Input::get('video'));
-    $project->image_1 = trim(Input::get('image_1'));
-    $project->image_2 = trim(Input::get('image_2'));
-    $project->image_3 = trim(Input::get('image_3'));
-    $project->thumbnail = trim(Input::get('thumbnail'));
-    $project->pdf = trim(Input::get('pdf'));
-    $project->ppt = trim(Input::get('ppt'));
-    $project->zip = trim(Input::get('zip', null));
+    $project->image_1 = $images[0];
+    $project->image_2 = $images[1];
+    $project->image_3 = $images[2];
+
+    $destinationPath = public_path().'/documents';
+    $folder = str_random(5);
+    $filename = str_random(6).uniqid().str_random(6).'.'.pathinfo($images[0], PATHINFO_EXTENSION);
+
+    if( ! File::exists($destinationPath.'/'.$folder)) {
+      try {
+        File::makeDirectory($destinationPath.'/'.$folder);
+      } catch(IOException $e) {
+        // FAIL
+      }
+    }
+
+    $image = Image::make(public_path().'/'.$images[0])->crop(300,300)->save($destinationPath.'/'.$folder.'/'.$filename);
+
+    $project->thumbnail = '/documents/'.$folder.'/'.$filename;
+    $project->pdf = $pdf;
+    $project->zip = $zip;
     $project->code = uniqid(md5(rand()));
     $project->total_participants = (int) trim(Input::get('total_part'));
     $project->department()->associate($dep);
@@ -168,6 +242,65 @@ class ProjectController extends BaseController {
     Session::flash('alert', '<strong>Heads Up!</strong> The code is changed after every successful update, so do note it again.');
 
     return Redirect::route('success');
+  }
+
+  public function doUpload() {
+    $file = Input::file('file');
+    $destinationPath = public_path().'/documents';
+
+    //$folder = $destinationPath.'/'.str_random(5);
+
+    $folder = str_random(5);
+
+    if( ! File::exists($destinationPath.'/'.$folder)) {
+      try {
+        File::makeDirectory($destinationPath.'/'.$folder);
+      } catch(IOException $e) {
+        // FAIL
+      }
+    }
+
+    $filename = str_random(6).uniqid().str_random(6).'.'.$file->getClientOriginalExtension();
+    $upload_success = $file->move($destinationPath.'/'.$folder, $filename);
+    if($upload_success) {
+      return Response::json(array('success' => 200, 'path' => '/documents'.'/'.$folder.'/'.$filename));
+    } else {
+      return Response::json('error', 400);
+    }
+  }
+
+  public function doRemove() {
+    $file = public_path() . Input::get('name');
+
+    if(File::exists($file) && File::isFile($file)) {
+      if(File::delete($file)) {
+        return Response::json(array('status' => 200));
+      }
+      else return Response::json(array('status' => 500));
+    }
+
+    return Response::json(array('status' => 200));
+  }
+
+  public function invokeProject() {
+    $id = Session::get('showcase_invoke_project_id', false);
+    if($id) {
+      $project = TempProject::find($id);
+      return Response::json(array('fresh' => false, 'fortune' => $project->toArray()));
+    }
+    else {
+      $project = new TempProject();
+      $project->save();
+      Session::set('showcase_invoke_project_id', $project->id);
+      return Response::json(array('fresh' => true, 'fortune' => $project->toArray()));
+    }
+  }
+
+  public function updateTemp() {
+    $fortune = Session::get('showcase_invoke_project_id');
+    $project = TempProject::where('fortune', $fortune)->firstOrFail();
+
+    //return Response::json(array('fresh' => false, 'fortune' => $project->toArray()));
   }
 
 }

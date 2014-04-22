@@ -1,13 +1,7 @@
 @extends('base')
 
-@section('stylesheet')
-<link rel="stylesheet" href="/assets/css/dropzone.css" />
-@stop
-
 @section('javascript')
-<script type="text/javascript" src="{{ asset('assets/js/dropzone.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/select.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/edit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
 @stop
 
 @section('body')
@@ -15,7 +9,7 @@
   <h3>Edit Project</h3>
 </div>
 
-{{ Form::open(array('route' => 'do_edit', 'id' => 'showcase_edit')) }}
+{{ Form::open(array('route' => 'do_edit')) }}
 
 <input type="hidden" class="hide" value="{{ $project->id }}" name="project_id">
 
@@ -84,7 +78,7 @@
       <h4>Documentation</h4>
     </div>
     <div class="col-lg-8">
-      <input type="text" class="form-control" placeholder="Video URL" name="video" required value="{{ $project->video }}">
+      <input type="url" class="form-control" placeholder="Video URL" name="video" required value="{{ $project->video }}">
     </div>
     <div class="col-lg-2">
       <h5>Use <a href="http://vimeo.com">Vimeo</a> for video</h5>
@@ -96,17 +90,50 @@
   <div class="row">
     <div class="col-lg-2 text-right"></div>
     <div class="col-lg-8">
-      <div class="dropzone uniq-shadow" id="dropzone">
-        <div class="fallback">
-          <input name="file" type="file" multiple />
+      <div class="row text-center">
+        <div class="col-lg-6">
+          <h4>Image</h4>
+          <h5 class="text-muted">Size 1000x200px</h5>
+          <input type="url" class="form-control" placeholder="Image URL" name="image_1" required value="{{ $project->image_1 }}">
+          <br>
+          <input type="url" class="form-control" placeholder="Image URL" name="image_2" required value="{{ $project->image_2 }}">
+          <br>
+          <input type="url" class="form-control" placeholder="Image URL" name="image_3" required value="{{ $project->image_3 }}">
+        </div>
+        <div class="col-lg-6">
+          <h4>Thumbnail</h4>
+          <h5 class="text-muted">Size 250x250px</h5>
+          <input type="url" class="form-control" placeholder="Thumbnail URL" name="thumbnail" required value="{{ $project->thumbnail }}">
         </div>
       </div>
-      <input type="hidden" class="hide" id="dz-helper" name="documents" autocomplete="off" value="{{ $project->document_string }}">
     </div>
     <div class="col-lg-2">
-      <h5>3 Images <small class="text-danger">required</small></h5>
-      <h5>1 PDF <small class="text-danger">required</small></h5>
-      <h5>1 ZIP <small>optional</small></h5>
+      <h5>Use <a href="http://imgur.com">Imgur</a> for images</h5>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-2 text-right"></div>
+    <div class="col-lg-8">
+      <div class="row text-center">
+        <div class="col-lg-4">
+          <h4>PDF</h4>
+          <input type="url" class="form-control" placeholder="PDF URL" name="pdf" required value="{{ $project->pdf }}">
+        </div>
+        <div class="col-lg-4">
+          <h4>PPT</h4>
+          <input type="url" class="form-control" placeholder="PPT URL" name="ppt" required value="{{ $project->ppt }}">
+        </div>
+        <div class="col-lg-4">
+          <h4>ZIP</h4>
+          <input type="url" class="form-control" placeholder="ZIP URL" name="zip" value="{{ $project->zip }}">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      <h5>Use <a href="http://drive.google.com">Google Drive</a> or <a href="http://dropbox.com">Dropbox</a> for Documents</h5>
     </div>
   </div>
 </div>

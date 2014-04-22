@@ -3,9 +3,15 @@
 Route::pattern('page', '[0-9]+');
 Route::pattern('id', '[0-9]+');
 
+Route::post('invokeProject', 'ProjectController@invokeProject');
+
 Route::get('/{page?}', array('as' => 'showcase', 'uses' => 'ShowcaseController@show'));
 
 Route::get('add', array('as' => 'add', 'uses' => 'ProjectController@add'));
+
+Route::get('add_dropzone', array('as' => 'add', 'uses' => 'ProjectController@addDropZone'));
+Route::post('documents/upload', array('uses' => 'ProjectController@doUpload'));
+Route::post('documents/remove', array('uses' => 'ProjectController@doRemove'));
 
 Route::get('edit', array('as' => 'edit', 'uses' => 'ProjectController@edit'));
 Route::post('edit', array('before' =>'csrf', 'as' => 'edit_check', 'uses' => 'ProjectController@editCheck'));
@@ -40,7 +46,35 @@ Route::get('/test', function() {
 
 Route::get('/pick', function() {
 
-  return View::make('pick');
+  $string = "/home/harsh/Projects/Showcase/public/documents/QpTDm/jCnQ5l5355289691034OVNi61.png,/home/harsh/Projects/Showcase/public/documents/SzI0y/PGiqmn535528985a9fbBvm1NK.png,/home/harsh/Projects/Showcase/public/documents/RUhvZ/WyhHmV5355289a9aa2aN266jZ.png";
+
+  $images = array();
+  $pdf = "";
+  $zip = "";
+
+  $a = explode(',', $string);
+
+  array_walk($a, function($s) use(&$images, &$pdf, &$zip) {
+    if(ends_with($s, 'pdf')) {
+      $pdf = $s;
+    }
+    if(ends_with($s, 'zip')) {
+      $zip = $s;
+    }
+    if(ends_with($s, 'jpg') || ends_with($s, 'jpeg') || ends_with($s, 'png')) {
+      $images[] = $s;
+    }
+  });
+
+  print_r($images);
+  print($pdf);
+  print($zip);
+
+  echo "<br>";
+
+  //echo substr("string.png", 1, -1);
+
+  echo pathinfo("string.png", PATHINFO_EXTENSION);
 
 });
 

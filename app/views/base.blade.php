@@ -28,6 +28,7 @@
     @yield('body')
     @include('footer')
     <script type="text/javascript" src="/assets/vendor/js/jquery.js"></script>
+    <script type="text/javascript" src="/assets/vendor/js/cookie.js"></script>
     <script type="text/javascript" src="/assets/vendor/js/bootstrap.js"></script>
     <script type="text/javascript" src="/assets/vendor/js/holder.js"></script>
     @yield('javascript')

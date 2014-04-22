@@ -23,13 +23,13 @@
           </ol>
           <div class="carousel-inner">
             <div class="item active">
-              <img src="{{ $project->image_1 }}" alt="{{ $project->title }}">
+              <img src="{{ asset($project->image_1) }}" alt="{{ $project->title }}">
             </div>
             <div class="item">
-              <img src="{{ $project->image_2 }}" alt="{{ $project->title }}">
+              <img src="{{ asset($project->image_2) }}" alt="{{ $project->title }}">
             </div>
             <div class="item">
-              <img src="{{ $project->image_3 }}" alt="{{ $project->title }}">
+              <img src="{{ asset($project->image_3) }}" alt="{{ $project->title }}">
             </div>
           </div>
           <a class="left carousel-control" href="#project-images" data-slide="prev">
@@ -58,27 +58,23 @@
         @if($project->video)
         <img src="holder.js/100%x400/text:Video" style="border-bottom: 1px solid #ddd">
         @endif
-        @if($project->pdf || $project->ppt || $project->zip)
-        <div class="panel-body">
-          <div class="row text-center">
-            @if($project->pdf)
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <h3><a href="{{ $project->pdf }}" target="_blank">PDF</a> <sup class="fa fa-external-link small"></sup></h3>
+        @if( ! is_null($project->zip))
+        <div class="panel-body text-center">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <h3><a href="{{ asset($project->pdf) }}" target="_blank">PDF</a> <sup class="fa fa-external-link small"></sup></h3>
             </div>
-            @endif
-            @if($project->ppt)
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <h3><a href="{{ $project->ppt }}" target="_blank">PPT</a> <sup class="fa fa-external-link small"></sup></h3>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <h3><a href="{{ asset($project->zip) }}" target="_blank">ZIP</a> <sup class="fa fa-external-link small"></sup></h3>
             </div>
-            @endif
-            @if($project->zip)
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-              <h3><a href="{{ $project->zip }}" target="_blank">ZIP</a> <sup class="fa fa-external-link small"></sup></h3>
-            </div>
-            @endif
           </div>
         </div>
+        @else
+        <div class="panel-body text-center">
+          <h3><a href="{{ asset($project->pdf) }}" target="_blank">PDF</a> <sup class="fa fa-external-link small"></sup></h3>
+        </div>
         @endif
+
       </div>
     </div>
   </div>

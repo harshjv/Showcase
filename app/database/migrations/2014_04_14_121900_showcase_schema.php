@@ -7,6 +7,12 @@ class ShowcaseSchema extends Migration {
 
   public function up() {
 
+    Schema::create('temp_projects', function($table) {
+      $table->increments('id')->unsigned();
+      $table->text('fortune')->nullable();
+      $table->timestamps();
+    });
+
     Schema::create('departments', function($table) {
       $table->increments('id')->unsigned();
       $table->string('name');
@@ -26,10 +32,10 @@ class ShowcaseSchema extends Migration {
       $table->string('image_1');
       $table->string('image_2');
       $table->string('image_3');
+
       $table->string('thumbnail')->nullable();
 
       $table->string('pdf');
-      $table->string('ppt');
       $table->string('zip')->nullable();
 
       $table->string('code')->unique();
@@ -58,11 +64,14 @@ class ShowcaseSchema extends Migration {
       $table->timestamps();
     });
 
+  
+
   }
 
   public function down() {
     Schema::drop('projects');
     Schema::drop('departments');
+    Schema::drop('temp_projects');
   }
 
 }

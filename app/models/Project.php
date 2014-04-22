@@ -59,6 +59,12 @@ class Project extends Eloquent {
     return $vals;
   }
 
+  public function getDocumentStringAttribute() {
+    $s = $this->pdf.",".$this->image_1.",".$this->image_2.",".$this->image_3;
+    if($this->zip) $s.=",".$this->zip;
+    return $s;
+  }
+
 
 
 }

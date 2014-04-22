@@ -5,19 +5,17 @@
 @stop
 
 @section('javascript')
-<script type="text/javascript" src="{{ asset('assets/js/dropzone.js') }}"></script>
+<script type="text/javascript" src="/assets/js/dropzone.js"></script>
 <script type="text/javascript" src="{{ asset('assets/js/select.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/js/edit.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/add.js') }}"></script>
 @stop
 
 @section('body')
 <div class="container-fluid title-box">
-  <h3>Edit Project</h3>
+  <h3>Add Project</h3>
 </div>
 
-{{ Form::open(array('route' => 'do_edit', 'id' => 'showcase_edit')) }}
-
-<input type="hidden" class="hide" value="{{ $project->id }}" name="project_id">
+{{ Form::open(array('route' => 'do_add', 'files' => true, 'id' => 'showcase_add')) }}
 
 <div class="container">
   <div class="row">
@@ -27,7 +25,7 @@
     <div class="col-lg-8">
       <select class="form-control" name="department" required autocomplete="off">
         @foreach($departments as $department)
-          <option value="{{ $department->id }}" {{ ($department->id == $project->department_id) ? 'selected' : '' }}>{{ $department->name }}</option>
+          <option value="{{ $department->id }}">{{ $department->name }}</option>
         @endforeach
       </select>
     </div>
@@ -43,7 +41,7 @@
       <h4>Title</h4>
     </div>
     <div class="col-lg-8">
-      <input type="text" class="form-control" name="title" required value="{{ $project->title }}">
+      <input type="text" class="form-control" name="title" required>
     </div>
     <div class="col-lg-2">
       <h5>Identity of your project</h5>
@@ -54,7 +52,7 @@
       <h4>Subtitle</h4>
     </div>
     <div class="col-lg-8">
-      <input type="text" class="form-control" name="subtitle" value="{{ $project->subtitle }}">
+      <input type="text" class="form-control" name="subtitle">
     </div>
     <div class="col-lg-2">
       <h5>Optional</h5>
@@ -69,7 +67,7 @@
       <h4>Description</h4>
     </div>
     <div class="col-lg-8">
-      <textarea class="form-control add-desc-box" rows="10" name="description" required>{{ $project->description_raw }}</textarea>
+      <textarea class="form-control add-desc-box" rows="10" name="description" required></textarea>
     </div>
     <div class="col-lg-2">
       <h5>A breif description of your project</h5>
@@ -84,7 +82,7 @@
       <h4>Documentation</h4>
     </div>
     <div class="col-lg-8">
-      <input type="text" class="form-control" placeholder="Video URL" name="video" required value="{{ $project->video }}">
+      <input type="url" class="form-control" placeholder="Video URL" name="video" required>
     </div>
     <div class="col-lg-2">
       <h5>Use <a href="http://vimeo.com">Vimeo</a> for video</h5>
@@ -101,7 +99,7 @@
           <input name="file" type="file" multiple />
         </div>
       </div>
-      <input type="hidden" class="hide" id="dz-helper" name="documents" autocomplete="off" value="{{ $project->document_string }}">
+      <input type="hidden" class="hide" id="dz-helper" name="documents" autocomplete="off">
     </div>
     <div class="col-lg-2">
       <h5>3 Images <small class="text-danger">required</small></h5>
@@ -129,18 +127,16 @@
               </tr>
             </thead>
             <tbody id="part-body">
-              @for($i=1; $i<=$project->total_participants;$i++)
               <tr>
-                <td><input class="form-control" type="text" name="part_1_name" required autocomplete="off" value="{{ $project['name_'.$i] }}"></td>
-                <td><input class="form-control" type="email" name="part_1_email" required autocomplete="off" value="{{ $project['email_'.$i] }}"></td>
-                <td><input class="form-control" type="text" name="part_1_enrollment" required autocomplete="off" value="{{ $project['enrollment_'.$i] }}"></td>
+                <td><input class="form-control" type="text" name="part_1_name" required></td>
+                <td><input class="form-control" type="email" name="part_1_email" required></td>
+                <td><input class="form-control" type="text" name="part_1_enrollment" required></td>
               </tr>
-              @endfor
             </tbody>
           </table>
         </div>
       </div>
-      <input type="hidden" class="hide" id="total-part" name="total_part" value="{{ $project->total_participants }}" autocomplete="off">
+      <input type="hidden" class="hide" id="total-part" name="total_part" value="1" autocomplete="off">
       <div class="btn-group btn-group-justified">
         <a class="btn btn-default btn-block" id="add-part">Add participant</a>
         <a class="btn btn-danger btn-block disabled" id="remove-part">Remove last participant</a>
@@ -157,22 +153,12 @@
       <h4>Final</h4>
     </div>
     <div class="col-lg-8">
-      <button type="submit" class="btn btn-success btn-block">Save changes</button>
+      <button type="submit" class="btn btn-success btn-block">Submit this project</button>
     </div>
     <div class="col-lg-2">
-      <h5>Best of luck for your changes</h5>
+      <h5>Best of luck. Bright future ahead!</h5>
     </div>
   </div>
 </div>
-
-<br>
-
-<div class="container text-right">
-  <p>Added {{ $project->created_at->diffForHumans() }}</p>
-  @if($project->created_at != $project->updated_at)
-    <p>Updated {{ $project->updated_at->diffForHumans() }}</p>
-  @endif
-</div>
-
 </form>
 @stop
