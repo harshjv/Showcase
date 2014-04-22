@@ -1,7 +1,13 @@
 @extends('base')
 
+@section('stylesheet')
+<link rel="stylesheet" href="/assets/css/dropzone.css" />
+@stop
+
 @section('javascript')
-<script type="text/javascript" src="{{ asset('assets/js/script.js') }}"></script>
+<script type="text/javascript" src="/assets/js/dropzone.js"></script>
+<script type="text/javascript" src="{{ asset('assets/js/select.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/add.js') }}"></script>
 @stop
 
 @section('body')
@@ -9,21 +15,21 @@
   <h3>Add Project</h3>
 </div>
 
-{{ Form::open(array('route' => 'do_add')) }}
+{{ Form::open(array('route' => 'do_add', 'files' => true, 'id' => 'showcase_add')) }}
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-2 text-right">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 showcase-form-title">
       <h4>Department</h4>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
       <select class="form-control" name="department" required autocomplete="off">
         @foreach($departments as $department)
           <option value="{{ $department->id }}">{{ $department->name }}</option>
         @endforeach
       </select>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <h5>Project belongs to this department</h5>
     </div>
   </div>
@@ -31,24 +37,24 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-2 text-right">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 showcase-form-title">
       <h4>Title</h4>
     </div>
-    <div class="col-lg-8">
-      <input type="text" class="form-control" name="title" required>
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      <input type="text" class="form-control" name="title" required autocomplete="off">
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <h5>Identity of your project</h5>
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-2 text-right">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 showcase-form-title">
       <h4>Subtitle</h4>
     </div>
-    <div class="col-lg-8">
-      <input type="text" class="form-control" name="subtitle">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      <input type="text" class="form-control" name="subtitle" autocomplete="off">
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <h5>Optional</h5>
     </div>
   </div>
@@ -57,13 +63,13 @@
 <br>
 <div class="container">
   <div class="row">
-    <div class="col-lg-2 text-right">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 showcase-form-title">
       <h4>Description</h4>
     </div>
-    <div class="col-lg-8">
-      <textarea class="form-control add-desc-box" rows="10" name="description" required></textarea>
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      <textarea class="form-control add-desc-box" rows="10" name="description" required autocomplete="off"></textarea>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <h5>A breif description of your project</h5>
     </div>
   </div>
@@ -72,13 +78,13 @@
 <br>
 <div class="container">
   <div class="row">
-    <div class="col-lg-2 text-right">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 showcase-form-title">
       <h4>Documentation</h4>
     </div>
-    <div class="col-lg-8">
-      <input type="url" class="form-control" placeholder="Video URL" name="video" required>
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      <input type="url" class="form-control" placeholder="Video URL" name="video" required autocomplete="off">
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <h5>Use <a href="http://vimeo.com">Vimeo</a> for video</h5>
     </div>
   </div>
@@ -86,52 +92,19 @@
 <br>
 <div class="container">
   <div class="row">
-    <div class="col-lg-2 text-right"></div>
-    <div class="col-lg-8">
-      <div class="row text-center">
-        <div class="col-lg-6">
-          <h4>Image</h4>
-          <h5 class="text-muted">Size 1000x200px</h5>
-          <input type="url" class="form-control" placeholder="Image URL" name="image_1" required>
-          <br>
-          <input type="url" class="form-control" placeholder="Image URL" name="image_2" required>
-          <br>
-          <input type="url" class="form-control" placeholder="Image URL" name="image_3" required>
-        </div>
-        <div class="col-lg-6">
-          <h4>Thumbnail</h4>
-          <h5 class="text-muted">Size 250x250px</h5>
-          <input type="url" class="form-control" placeholder="Thumbnail URL" name="thumbnail" required>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 showcase-form-title"></div>
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      <div class="dropzone uniq-shadow" id="dropzone">
+        <div class="fallback">
+          <input name="file" type="file" multiple autocomplete="off"/>
         </div>
       </div>
+      <input type="hidden" class="hide" id="dz-helper" name="documents" autocomplete="off">
     </div>
-    <div class="col-lg-2">
-      <h5>Use <a href="http://imgur.com">Imgur</a> for images</h5>
-    </div>
-  </div>
-</div>
-<br>
-<div class="container">
-  <div class="row">
-    <div class="col-lg-2 text-right"></div>
-    <div class="col-lg-8">
-      <div class="row text-center">
-        <div class="col-lg-4">
-          <h4>PDF</h4>
-          <input type="url" class="form-control" placeholder="PDF URL" name="pdf" required>
-        </div>
-        <div class="col-lg-4">
-          <h4>PPT</h4>
-          <input type="url" class="form-control" placeholder="PPT URL" name="ppt" required>
-        </div>
-        <div class="col-lg-4">
-          <h4>ZIP</h4>
-          <input type="url" class="form-control" placeholder="ZIP URL" name="zip">
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-2">
-      <h5>Use <a href="http://drive.google.com">Google Drive</a> or <a href="http://dropbox.com">Dropbox</a> for Documents</h5>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+      <h5>3 Images <small class="text-danger">required</small></h5>
+      <h5>1 PDF <small class="text-danger">required</small></h5>
+      <h5>1 ZIP <small>optional</small></h5>
     </div>
   </div>
 </div>
@@ -139,10 +112,10 @@
 <br>
 <div class="container">
   <div class="row">
-    <div class="col-lg-2 text-right">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 showcase-form-title">
       <h4>Participants</h4>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
       <div class="panel panel-default">
         <div class="table-responsive">
           <table class="table table-hover text-center">
@@ -176,17 +149,16 @@
 <br>
 <div class="container">
   <div class="row">
-    <div class="col-lg-2 text-right">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 showcase-form-title">
       <h4>Final</h4>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
       <button type="submit" class="btn btn-success btn-block">Submit this project</button>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <h5>Best of luck. Bright future ahead!</h5>
     </div>
   </div>
 </div>
-
 </form>
 @stop

@@ -1,9 +1,5 @@
 @extends('base')
 
-@section('title')
-Sarvajanik College of Engineering and Technology - Showcase
-@stop
-
 @section('body')
 <div class="container-fluid title-box">
   <h3>Recent projects</h3>

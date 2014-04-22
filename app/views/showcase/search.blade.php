@@ -1,9 +1,5 @@
 @extends('base')
 
-@section('title')
-{{ ucwords($search_term) }} - Search - Sarvajanik College of Engineering and Technology - Showcase
-@stop
-
 @section('body')
 <div class="container-fluid title-box">
   <h3>Search Result</h3>

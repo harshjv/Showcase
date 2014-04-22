@@ -10,10 +10,10 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-lg-2 text-right">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 showcase-form-title">
       <h4>Description</h4>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
       <div class="panel panel-default">
         <div id="project-images" class="carousel slide" data-ride="carousel" style="border-bottom: 1px solid #ddd">
           <ol class="carousel-indicators">
@@ -50,10 +50,10 @@
 <br>
 <div class="container">
   <div class="row">
-    <div class="col-lg-2 text-right">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 showcase-form-title">
       <h4>Documentation</h4>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
       <div class="panel panel-default">
         @if($project->video)
         <img src="holder.js/100%x400/text:Video" style="border-bottom: 1px solid #ddd">
@@ -83,10 +83,10 @@
 <br>
 <div class="container">
   <div class="row">
-    <div class="col-lg-2 text-right">
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 showcase-form-title">
       <h4>Participants</h4>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
       <div class="panel panel-default">
         <div class="table-responsive">
           <table class="table table-hover text-center">
@@ -116,7 +116,7 @@
 </div>
 
 <br>
-<div class="container text-right">
+<div class="container showcase-form-title">
   <p>Added {{ $project->created_at->diffForHumans() }}</p>
 </div>
 @stop

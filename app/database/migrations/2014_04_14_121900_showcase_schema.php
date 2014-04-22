@@ -7,12 +7,6 @@ class ShowcaseSchema extends Migration {
 
   public function up() {
 
-    Schema::create('temp_projects', function($table) {
-      $table->increments('id')->unsigned();
-      $table->text('fortune')->nullable();
-      $table->timestamps();
-    });
-
     Schema::create('departments', function($table) {
       $table->increments('id')->unsigned();
       $table->string('name');
@@ -64,14 +58,11 @@ class ShowcaseSchema extends Migration {
       $table->timestamps();
     });
 
-  
-
   }
 
   public function down() {
     Schema::drop('projects');
     Schema::drop('departments');
-    Schema::drop('temp_projects');
   }
 
 }

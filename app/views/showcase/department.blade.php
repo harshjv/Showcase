@@ -1,9 +1,5 @@
 @extends('base')
 
-@section('title')
-{{ $department->name }} - Department - Sarvajanik College of Engineering and Technology
-@stop
-
 @section('body')
 <div class="container-fluid title-box">
   <h3>Recent projects <span class="text-muted">in</span> <a href="{{ route('view_department', array($department->slug)) }}">{{ $department->name }}</a></h3>
