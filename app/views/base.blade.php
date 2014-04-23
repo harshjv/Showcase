@@ -32,6 +32,10 @@
     </div>
     @yield('body')
     @include('footer')
+    <div class='notifications top-right'></div>
+    <div class='notifications bottom-right'></div>
+    <div class='notifications top-left'></div>
+    <div class='notifications bottom-left'></div>
     <script type="text/javascript" src="/assets/vendor/js/jquery.js"></script>
     <script type="text/javascript" src="/assets/vendor/js/bootstrap.js"></script>
     <script type="text/javascript" src="/assets/vendor/js/holder.js"></script>

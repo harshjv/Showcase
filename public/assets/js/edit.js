@@ -19,15 +19,42 @@ dropzone = new Dropzone("#dropzone", {
   uploadMultiple: false,
   accept: function(file, done) {
     if(isImage(file)) {
-      if(img_count == 3) done("You have already uploaded 3 images");
+      if(img_count == 3) {
+        $('.bottom-left').notify({
+          message: { html: '<p><strong>Whoops! </strong> You have already uploaded 3 images. Remove one of them to upload a new image</p>' },
+          type: 'warning',
+          fadeOut: {
+            delay: 8500
+          }
+        }).show();
+        done("You have already uploaded 3 images");
+      }
       else done();
     }
     else if(isPDF(file)) {
-      if(pdf_count == 1) done("You have already uploaded 1 pdf");
+      if(pdf_count == 1) {
+        $('.bottom-left').notify({
+          message: { html: '<p><strong>Whoops! </strong> You have already uploaded 1 PDF. Remove it to upload a new PDF</p>' },
+          type: 'warning',
+          fadeOut: {
+            delay: 8500
+          }
+        }).show();
+        done("You have already uploaded 1 PDF");
+      }
       else done();
     }
     else {
-      if(zip_count == 1) done("You have already uploaded 1 zip");
+      if(zip_count == 1) {
+        $('.bottom-left').notify({
+          message: { html: '<p><strong>Whoops! </strong> You have already uploaded 1 ZIP. Remove it to upload a new ZIP</p>' },
+          type: 'warning',
+          fadeOut: {
+            delay: 8500
+          }
+        }).show();
+        done("You have already uploaded 1 zip");
+      }
       else done();
     }
   }
@@ -102,11 +129,23 @@ $('#showcase_edit').submit(function() {
   help.val(st);
   if(img_count < 3) {
     error = true;
-    alert("Must upload 3 images");
+    $('.bottom-left').notify({
+      message: { html: '<p><strong>Hey! </strong> You must upload 3 images</p>' },
+      type: 'danger',
+      fadeOut: {
+        delay: 8500
+      }
+    }).show();
   }
   if(pdf_count < 1) {
     error = true;
-    alert("Must upload 1 pdf");
+    $('.bottom-left').notify({
+      message: { html: '<p><strong>Hey! </strong> You must upload 1 PDF</p>' },
+      type: 'danger',
+      fadeOut: {
+        delay: 8500
+      }
+    }).show();
   }
   if(error) return false;
 });

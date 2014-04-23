@@ -17,6 +17,7 @@
 
 {{ Form::open(array('route' => 'do_edit', 'id' => 'showcase_edit')) }}
 
+<input type="hidden" class="hide" value="{{ $project->id }}" name="project_id">
 <input type="hidden" class="hide" value="{{ $project->code }}" name="project_code">
 
 <div class="container">
@@ -131,9 +132,9 @@
             <tbody id="part-body">
               @for($i=1; $i<=$project->total_participants;$i++)
               <tr>
-                <td><input class="form-control" type="text" name="part_1_name" required autocomplete="off" value="{{ $project['name_'.$i] }}"></td>
-                <td><input class="form-control" type="email" name="part_1_email" required autocomplete="off" value="{{ $project['email_'.$i] }}"></td>
-                <td><input class="form-control" type="text" name="part_1_enrollment" required autocomplete="off" value="{{ $project['enrollment_'.$i] }}"></td>
+                <td><input class="form-control" type="text" name="part_{{ $i }}_name" required autocomplete="off" value="{{ $project['name_'.$i] }}"></td>
+                <td><input class="form-control" type="email" name="part_{{ $i }}_email" required autocomplete="off" value="{{ $project['email_'.$i] }}"></td>
+                <td><input class="form-control" type="text" name="part_{{ $i }}_enrollment" required autocomplete="off" value="{{ $project['enrollment_'.$i] }}"></td>
               </tr>
               @endfor
             </tbody>

@@ -558,7 +558,7 @@ require.register("dropzone/lib/dropzone.js", function(exports, require, module){
           }
         }
         if (this.options.addRemoveLinks) {
-          file._removeLink = Dropzone.createElement("<a class=\"dz-remove\" href=\"javascript:undefined;\" data-dz-remove>" + this.options.dictRemoveFile + "</a>");
+          file._removeLink = Dropzone.createElement("<a class=\"dz-remove btn btn-danger btn-sm btn-block\" href=\"javascript:undefined;\" data-dz-remove>" + this.options.dictRemoveFile + "</a>");
           file.previewElement.appendChild(file._removeLink);
         }
         removeFileEvent = function(e) {
@@ -657,7 +657,7 @@ require.register("dropzone/lib/dropzone.js", function(exports, require, module){
       completemultiple: noop,
       maxfilesexceeded: noop,
       maxfilesreached: noop,
-      previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n  <div class=\"dz-filepath\"><span data-dz-path></span></div> \n  <img data-dz-thumbnail />\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-success-mark\"><span>✔</span></div>\n  <div class=\"dz-error-mark\"><span>✘</span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n </div>"
+      previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n  <div class=\"dz-filepath\"><span data-dz-path></span></div> \n  <img data-dz-thumbnail />\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-success-mark\"><span>✔</span></div>\n  <div class=\"dz-error-mark\"><span>✘</span></div>\n  <div class=\"dz-error-message alert alert-danger\"><span data-dz-errormessage></span></div>\n </div>"
     };
 
     extend = function() {

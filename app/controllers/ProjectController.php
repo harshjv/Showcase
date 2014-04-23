@@ -24,9 +24,9 @@ class ProjectController extends BaseController {
 
   public function editCheck() {
     try {
-      $project = Project::with('department')->where('code', trim(Input::get('code')))->firstOrFail();
+      $project = Project::with('department')->where('id', trim(Input::get('project_id')))->where('code', trim(Input::get('project_code')))->firstOrFail();
     } catch(Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-      return View::make('error', array('message' => 'Wrong Code', 'submessage' => 'Check your mail'));
+      return View::make('error', array('message' => 'Wrong Code/ID', 'submessage' => 'Check your mail'));
     }
     $departments = Cache::rememberForever('departments', function() {
       return Department::all();

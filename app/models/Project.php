@@ -140,7 +140,11 @@ class Project extends Eloquent {
   }
 
   public static function editProject() {
-    $project = Project::where('code', trim(Input::get('project_code')))->firstOrFail();
+    try {
+      $project = Project::where('id', trim(Input::get('project_id')))->where('code', trim(Input::get('project_code')))->firstOrFail();
+    } catch(Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+      return View::make('error', array('message' => 'Something went wrong', 'submessage' => 'This project has been changed already. Use new code'));
+    }
 
     DB::transaction(function() use(&$project) {
     $dep = Department::find((int) Input::get('department'));

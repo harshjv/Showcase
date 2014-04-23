@@ -116,7 +116,7 @@
 </div>
 
 <br>
-<div class="container showcase-form-title">
+<div class="container text-center">
   <p>Added {{ $project->created_at->diffForHumans() }}</p>
 </div>
 @stop

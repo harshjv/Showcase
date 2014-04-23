@@ -14,15 +14,19 @@ class ShowcaseController extends BaseController {
 
   public function show($page = 1) {
 
+    $departments = Cache::rememberForever('departments', function() {
+      return Department::all();
+    });
+
     $title = Config::get('showcase.title');
 
     $projects_per_page = Config::get('showcase.projects_per_page');
     $projects = Project::with('department')->paginatedWithSorted($projects_per_page, $page)->get();
     $total_projects = Project::count();
 
-    if(count($projects) == 0) return View::make('showcase.zero', array('message' => 'Sorry', 'submessage' => 'Nothing to display'));
+    if(count($projects) == 0) return View::make('error', array('message' => 'Sorry', 'submessage' => 'Nothing to display'));
 
-    return View::make('showcase.show', compact('title', 'projects', 'total_projects', 'page', 'projects_per_page'));
+    return View::make('showcase.show', compact('title', 'projects', 'total_projects', 'page', 'projects_per_page', 'departments'));
   }
 
   public function search() {
@@ -40,16 +44,19 @@ class ShowcaseController extends BaseController {
 
     $projects = $p->paginatedWithSorted($projects_per_page, $page)->get();
 
-    if(count($projects) == 0) return View::make('showcase.zero');
+    if(count($projects) == 0) return View::make('error');
 
     $total_projects = $p_count->count();
 
-    return View::make('showcase.search', compact('projects', 'total_projects', 'page', 'projects_per_page', 'search_term', 'title'));
+    $departments = Cache::rememberForever('departments', function() {
+      return Department::all();
+    });
+
+    return View::make('showcase.search', compact('projects', 'total_projects', 'page', 'projects_per_page', 'search_term', 'title', 'departments'));
 
   }
 
   public function department($slug, $page = 1) {
-
 
     $projects_per_page = Config::get('showcase.projects_per_page');
 
@@ -63,9 +70,13 @@ class ShowcaseController extends BaseController {
 
     $title = $department->name . ' - ' . Config::get('showcase.title');
 
-    if(count($projects) == 0) return View::make('showcase.zero', array('message' => 'Sorry', 'submessage' => 'Nothing to display in '.$department->name));
+    if(count($projects) == 0) return View::make('error', array('message' => 'Sorry', 'submessage' => 'Nothing to display in '.$department->name));
 
-    return View::make('showcase.department', compact('department', 'projects', 'total_projects', 'page', 'projects_per_page', 'title'));
+    $departments = Cache::rememberForever('departments', function() {
+      return Department::all();
+    });
+
+    return View::make('showcase.department', compact('department', 'projects', 'total_projects', 'page', 'projects_per_page', 'title', 'departments'));
   }
 
   public function success() {

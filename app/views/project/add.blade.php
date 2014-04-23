@@ -5,6 +5,7 @@
 @stop
 
 @section('javascript')
+<script type="text/javascript" src="/assets/js/notify.js"></script>
 <script type="text/javascript" src="/assets/js/dropzone.js"></script>
 <script type="text/javascript" src="{{ asset('assets/js/select.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/add.js') }}"></script>
