@@ -69,6 +69,7 @@
     </div>
     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
       <h5>A breif description of your project</h5>
+      <h5>Markdown format accepted</h5>
     </div>
   </div>
 </div>

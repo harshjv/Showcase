@@ -93,7 +93,7 @@ class Project extends Eloquent {
     $project->title = ucfirst(trim(Input::get('title')));
     $project->subtitle = ucfirst(trim(Input::get('subtitle', null)));
     $project->description_raw = ($desc = ucfirst(trim(Input::get('description'))));
-    $project->description = nl2br(htmlentities($desc));
+    $project->description = Showcase::markItDown(htmlspecialchars($desc, ENT_NOQUOTES, 'UTF-8'));
     $project->video = trim(Input::get('video'));
 
     $project->image_1 = $images[0];
@@ -169,7 +169,7 @@ class Project extends Eloquent {
     $project->title = ucfirst(trim(Input::get('title')));
     $project->subtitle = ucfirst(trim(Input::get('subtitle', null)));
     $project->description_raw = ($desc = ucfirst(trim(Input::get('description'))));
-    $project->description = nl2br(htmlentities($desc));
+    $project->description = Showcase::markItDown(htmlspecialchars($desc, ENT_NOQUOTES, 'UTF-8'));
     $project->video = trim(Input::get('video'));
     $project->image_1 = $images[0];
     $project->image_2 = $images[1];

@@ -108,7 +108,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Intervention\Image\ImageServiceProvider',
 		'Sebklaus\Profiler\Providers\ProfilerServiceProvider',
-		'Artdarek\OAuth\OAuthServiceProvider',
+		//'Artdarek\OAuth\OAuthServiceProvider',
+		'Showcase\ShowcaseServiceProvider',
 
 	),
 
@@ -177,6 +178,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Image'						=> 'Intervention\Image\Facades\Image',
 		'OAuth' => 'Artdarek\OAuth\Facade\OAuth',
+		'Showcase' => 'Showcase\Facades\ShowcaseFacade',
 
 	),
 
