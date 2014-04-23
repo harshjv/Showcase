@@ -4,10 +4,16 @@ class ProjectController extends BaseController {
 
   public function add() {
     $title = "Add project - ".Config::get('showcase.title');
-    $departments = Cache::rememberForever('departments', function() {
-      return Department::all();
-    });
-    return View::make('project.add', compact('departments', 'title'));
+    return View::make('project.add', compact('title'));
+  }
+
+  public function addCheck() {
+    try {
+      $department = Department::where('code', trim(Input::get('department_code')))->firstOrFail();
+    } catch(Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+      return View::make('error', array('message' => 'Wrong Department Code', 'submessage' => 'Ask your faculty'));
+    }
+    return View::make('project.do_add', compact('project', 'department'));
   }
 
   public function doAdd() {
@@ -28,10 +34,7 @@ class ProjectController extends BaseController {
     } catch(Illuminate\Database\Eloquent\ModelNotFoundException $e) {
       return View::make('error', array('message' => 'Wrong Code/ID', 'submessage' => 'Check your mail'));
     }
-    $departments = Cache::rememberForever('departments', function() {
-      return Department::all();
-    });
-    return View::make('project.do_edit', compact('project', 'departments'));
+    return View::make('project.do_edit', compact('project'));
   }
 
   public function doEdit() {

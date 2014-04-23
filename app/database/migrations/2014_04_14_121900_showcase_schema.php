@@ -11,6 +11,7 @@ class ShowcaseSchema extends Migration {
       $table->increments('id')->unsigned();
       $table->string('name');
       $table->string('slug')->unique();
+      $table->string('code')->unique();
       $table->timestamps();
     });
 
