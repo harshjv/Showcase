@@ -23,7 +23,3 @@ Route::get('project/{id}', array('as' => 'view_project', 'uses' => 'ShowcaseCont
 Route::get('department/{slug}/{page?}', array('as' => 'view_department', 'uses' => 'ShowcaseController@department'));
 
 Route::get('success', array('as' => 'success', 'uses' => 'ShowcaseController@success'));
-
-Route::get('test', function() {
-	echo Showcase::markItDown(htmlentities("``<script>alert('ok')</script>``"));
-});
